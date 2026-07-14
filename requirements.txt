@@ -1,0 +1,44 @@
+# ─────────────────────────────────────────────
+# Blue Zone Explorer
+# Python 3.10.6  |  Streamlit stack
+# ─────────────────────────────────────────────
+# Install: pip install -r requirements.txt
+
+
+# ── Data ──────────────────────────────────────
+pandas==2.2.3
+numpy==1.26.4
+scipy==1.13.1
+pyarrow==17.0.0
+
+
+# ── Machine learning ──────────────────────────
+scikit-learn==1.5.2
+joblib==1.4.2
+
+
+# ── App ───────────────────────────────────────
+streamlit==1.38.0
+streamlit-folium==0.22.0
+folium==0.17.0
+plotly==5.24.1
+
+
+# ── Claude API ────────────────────────────────
+anthropic==0.34.2
+
+
+# ── Data fetching ─────────────────────────────
+requests==2.32.3
+
+
+# ── Geospatial ────────────────────────────────
+geopandas==1.0.1
+shapely==2.0.6
+
+
+# ── Environment ───────────────────────────────
+python-dotenv==1.0.1
+
+# ── Google Cloud ───────────────────────────────
+google-cloud-storage=3.1.0

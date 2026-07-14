@@ -34,13 +34,18 @@ Blue Zone Explorer is that tool.
 
 ```
 bluezone-explorer/
-├── data/                        # Raw and processed datasets
-│   ├── raw/                     # Eurostat API downloads, EEA CSV
-│   ├── processed/               # Cleaned, imputed, wide-format parquet files
-│   └── artifacts/               # Trained model outputs (scaler, PCA loadings, k-means)
+├── data/
+│   ├── raw/
+│   │   └── eurostat/                 # .tsv files from Eurostat API
+│   ├── processed/
+│   │   └── nuts2_wide/               # One parquet per indicator
+│   └── artifacts/
 │       ├── scaler.joblib
-│       ├── pca_loadings.json    # Exported for in-browser scoring
-│       └── kmeans_model.joblib
+│       ├── pca_loadings.json
+│       ├── kmeans_model.joblib
+│       ├── scores_by_year.parquet
+│       └── region_metadata.parquet
+│
 ├── notebooks/
 │   ├── 01_data_collection.ipynb
 │   ├── 02_preprocessing.ipynb
@@ -48,22 +53,58 @@ bluezone-explorer/
 │   ├── 04_clustering.ipynb
 │   ├── 05_validation.ipynb
 │   └── 06_gdp_analysis.ipynb
-├── api/                         # FastAPI backend
+│
+├── scripts/
+│   ├── 01_data_collection.py
+│   ├── 02_preprocessing.py
+│   ├── 03_pca_scoring.py
+│   ├── 04_clustering.py
+│   ├── 05_validation.py
+│   └── 06_gdp_analysis.py
+│
+├── src/
+│   ├── __init__.py
+│   ├── config.py
+│   ├── data/
+│   │   ├── __init__.py
+│   │   ├── eurostat.py               # Eurostat API fetching functions
+│   │   └── gcs.py                    # Upload/download to GCS bucket
+│   ├── ml/
+│   │   ├── __init__.py
+│   │   ├── preprocessing.py
+│   │   ├── scoring.py
+│   │   └── clustering.py
+│   └── utils/
+│       ├── __init__.py
+│       └── logging.py
+│
+├── app/
 │   ├── main.py
-│   ├── routes/
-│   │   ├── scores.py            # Serve pre-computed scores + trends
-│   │   └── policy_chat.py       # Claude API integration
-│   └── models/
-├── frontend/                    # React + Tailwind
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Map/             # Leaflet choropleth
-│   │   │   ├── Sidebar/         # Region panel, sliders, projection chart
-│   │   │   ├── PolicyChat/      # Chat input + impact card
-│   │   │   └── GDPScatter/      # Preston curve visualisation
-│   │   ├── lib/
-│   │   │   └── scorer.js        # In-browser PCA rescoring via dot product
-│   │   └── App.jsx
+│   ├── pages/
+│   │   ├── 01_map.py
+│   │   ├── 02_scenario.py
+│   │   ├── 03_policy_chat.py
+│   │   └── 04_methodology.py
+│   └── components/
+│       ├── map_component.py
+│       ├── scorer.py
+│       ├── projection_chart.py
+│       └── gdp_scatter.py
+│
+├── secrets/
+│   └── service-account.json
+│
+├── tests/
+│   ├── test_preprocessing.py
+│   ├── test_scoring.py
+│   └── test_clustering.py
+│
+├── .env
+├── .env.example
+├── .gitignore
+├── Makefile
+├── Dockerfile
+├── requirements.txt
 └── README.md
 ```
 
