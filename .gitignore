@@ -1,0 +1,73 @@
+# ─────────────────────────────────────────────
+# Blue Zone Explorer — .gitignore
+# ─────────────────────────────────────────────
+
+
+# ── Secrets ───────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+
+# ── Python ────────────────────────────────────
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+*.egg
+dist/
+build/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+
+# ── Jupyter ───────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+
+# ── Data — large files, always reproducible ───
+data/raw/
+data/processed/
+
+# Trained sklearn binaries — regenerate with: make pipeline
+data/artifacts/*.joblib
+data/artifacts/*.pkl
+
+# These ARE tracked (small, needed by the app at runtime):
+#   data/artifacts/pca_loadings.json
+#   data/artifacts/region_metadata.parquet
+#   data/artifacts/scores_by_year.parquet
+
+
+# ── Node ──────────────────────────────────────
+node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+yarn-error.log
+
+
+# ── OS ────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+
+# ── IDE ───────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# GCloud service account — service account keys are passwords, never commit
+secrets/
+service-account*.json

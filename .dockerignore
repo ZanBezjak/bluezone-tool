@@ -1,0 +1,42 @@
+# ─────────────────────────────────────────────
+# Blue Zone Explorer — .dockerignore
+# ─────────────────────────────────────────────
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Data — never bake raw or processed data into the image
+# Artifacts are copied explicitly in the Dockerfile
+data/raw/
+data/processed/
+data/artifacts/*.joblib
+
+# Notebooks — not needed in the container
+notebooks/
+scripts/
+
+# Secrets
+.env
+secrets/
+
+# Tests
+tests/
+
+# Git
+.git/
+.gitignore
+
+# Docs
+README.md
+*.pptx
+*.xlsx
+*.docx
+
+# OS
+.DS_Store
+Thumbs.db
