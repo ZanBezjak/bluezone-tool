@@ -122,13 +122,6 @@ DATASETS = {
         "keep_aggregates": False,
         "notes":   "% with no one to discuss personal matters. 2015 only.",
     },
-    "social_expenditure": {
-        "code":    "tps00100",
-        "filters": {"unit": "PPS_HAB", "spdeps": "TOTAL"},
-        "level":   "all",
-        "keep_aggregates": False,
-        "notes":   "Social protection expenditure per inhabitant in PPS.",
-    },
     "social_support": {
         "code":    "ilc_scp15",
         "filters": {"unit": "PC", "sex": "T", "age": "Y_GE16",
@@ -153,6 +146,14 @@ DATASETS = {
         "level":   "all",
         "keep_aggregates": False,
         "notes":   "Total unemployment rate. NUTS2 confirmed.",
+    },
+    "fruit_veggies": {
+        "code":    "hlth_ehis_fv3e",
+        "filters": {"unit": "PC", "sex": "T", "age": "TOTAL",
+                    "isced11": "TOTAL", "n_portion": "GE5"},
+        "level":   "all",
+        "keep_aggregates": False,
+        "notes":   ">5 portions per day. 2014, 2019 only.",
     },
 }
 
