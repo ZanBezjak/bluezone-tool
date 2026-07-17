@@ -172,7 +172,7 @@ def download_and_save(code: str, label: str) -> tuple[Path, bool]:
     save_path = RAW_DIR / f"{label}.tsv"
 
     if save_path.exists():
-        log.info(f"SKIP {label} — already cached")
+        log.info(f"⏭️ SKIP {label} — already cached")
         return save_path, False
 
     url = BASE_URL.format(code=code)
@@ -188,7 +188,7 @@ def download_and_save(code: str, label: str) -> tuple[Path, bool]:
 
     text = gzip.decompress(content).decode("utf-8")
     save_path.write_text(text, encoding="utf-8")
-    log.info(f"Saved {label} -> {save_path}")
+    log.info(f"💾 Saved {label} -> {save_path}")
     return save_path, True
 
 
@@ -257,7 +257,7 @@ def filter_geo(df: pd.DataFrame, level: str, keep_aggregates: bool) -> pd.DataFr
 
 def process_dataset(name: str, config: dict) -> tuple[pd.DataFrame, dict]:
     """Download, filter, reshape and save one dataset to data/interim/."""
-    log.info(f"Processing {name} ({config['code']})")
+    log.info(f"⏳ Processing {name} ({config['code']})")
 
     save_path, _ = download_and_save(config["code"], name)
     df = pd.read_csv(save_path, sep="\t", na_values=[":", ": "])
@@ -268,7 +268,7 @@ def process_dataset(name: str, config: dict) -> tuple[pd.DataFrame, dict]:
         if col in df.columns:
             df = df[df[col] == val]
         else:
-            log.warning(f"  '{col}' not found in {name} — skipping filter")
+            log.warning(f" ⚠️ '{col}' not found in {name} — skipping filter")
 
     df = to_wide(df)
     df = filter_geo(df, config["level"], config["keep_aggregates"])
@@ -284,7 +284,7 @@ def process_dataset(name: str, config: dict) -> tuple[pd.DataFrame, dict]:
     )
 
     log.info(
-        f"  + {df.shape} | "
+        f" ✅ + {df.shape} | "
         f"nuts0={level_counts.get(2, 0)} "
         f"nuts1={level_counts.get(3, 0)} "
         f"nuts2={level_counts.get(4, 0)} | "
@@ -323,7 +323,7 @@ def main():
         datefmt="%H:%M:%S",
     )
     log.info("=" * 60)
-    log.info("Blue Zone Explorer — Data Collection")
+    log.info("🌍 Blue Zone Explorer — Data Collection")
     log.info("=" * 60)
 
     report = []
@@ -337,4 +337,5 @@ def main():
 
     log.info("=" * 60)
     log.info("\n" + report_df.to_string(index=False))
-    log.info(f"\nDone — report saved to {report_path}")
+    log.info(f"📊 Report saved to {report_path}")
+    log.info("🎉 All datasets collected successfully")
