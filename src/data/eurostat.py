@@ -162,7 +162,7 @@ eurostat_datasets = {config["code"]: name for name, config in DATASETS.items()}
 
 # ── Download & Save ──────────────────────────────────────────────────────────────────
 
-def download_and_save(code: str, label: str) -> tuple[Path, bool]:
+def download_and_save(code: str, label: str, force: bool = False) -> tuple[Path, bool]:
     """
     Download a Eurostat dataset by code and cache as TSV in RAW_DIR.
     Skips download if file already exists.
@@ -171,7 +171,7 @@ def download_and_save(code: str, label: str) -> tuple[Path, bool]:
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     save_path = RAW_DIR / f"{label}.tsv"
 
-    if save_path.exists():
+    if save_path.exists() and not force:
         log.info(f"⏭️ SKIP {label} — already cached")
         return save_path, False
 
@@ -255,11 +255,11 @@ def filter_geo(df: pd.DataFrame, level: str, keep_aggregates: bool) -> pd.DataFr
 
 # ── Pipeline ──────────────────────────────────────────────────────────────────
 
-def process_dataset(name: str, config: dict) -> tuple[pd.DataFrame, dict]:
+def process_dataset(name: str, config: dict, force: bool = False) -> tuple[pd.DataFrame, dict]:
     """Download, filter, reshape and save one dataset to data/interim/."""
     log.info(f"⏳ Processing {name} ({config['code']})")
 
-    save_path, _ = download_and_save(config["code"], name)
+    save_path, _ = download_and_save(config["code"], name, force=force)
     df = pd.read_csv(save_path, sep="\t", na_values=[":", ": "])
 
     df = parse(df)
@@ -315,7 +315,7 @@ def clear_interim():
     log.info("Cleared data/interim/")
 
 
-def main():
+def main(force: bool = False):
     """Run the full data collection pipeline."""
     logging.basicConfig(
         level=logging.INFO,
@@ -328,7 +328,7 @@ def main():
 
     report = []
     for name, config in DATASETS.items():
-        _, stats = process_dataset(name, config)
+        _, stats = process_dataset(name, config, force=force)
         report.append(stats)
 
     report_df = pd.DataFrame(report)
