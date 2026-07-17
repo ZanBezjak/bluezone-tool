@@ -37,6 +37,8 @@ coverage.xml
 # ── Data — large files, always reproducible ───
 data/raw/
 data/processed/
+data/interim/
+
 
 # Trained sklearn binaries — regenerate with: make pipeline
 data/artifacts/*.joblib
