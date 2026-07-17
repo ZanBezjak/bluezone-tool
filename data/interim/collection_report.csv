@@ -1,16 +1,16 @@
 dataset,code,level,nuts0,nuts1,nuts2,year_min,year_max,n_years,shape,missing_pct,notes
-aerobic_activity,hlth_ehis_pe2e,country,32,0,0,2014,2019,2,"(32, 2)",7.8,% meeting 150+ min/week. 2014 and 2019 only.
-family_contact,ilc_scp09,country,36,0,0,2015,2022,2,"(36, 2)",8.3,% getting together with family at least weekly. 2015 only.
+aerobic_activity,hlth_ehis_pe2e,all,32,0,0,2014,2019,2,"(32, 2)",7.8,% meeting 150+ min/week. 2014 and 2019 only.
+family_contact,ilc_scp09,all,36,0,0,2015,2022,2,"(36, 2)",8.3,% getting together with family at least weekly. 2015 only.
 gdp_per_capita,nama_10r_2gdp,all,33,110,285,2000,2024,25,"(428, 25)",3.1,GDP per capita in PPS. NUTS0-2 confirmed.
-heavy_drinking,hlth_ehis_al3e,country,32,0,0,2014,2019,2,"(32, 2)",7.8,% drinking heavily at least once/week. 2014 and 2019 only.
-internet_usage,isoc_r_iuse_i,all,38,127,226,2006,2025,20,"(391, 20)",25.1,% regularly using internet. NUTS2 confirmed.
-life_expectancy,demo_r_mlifexp,all,31,0,0,2013,2024,12,"(31, 12)",2.4,Life expectancy at birth. No total sex — use F and M separately then average.
-life_satisfaction,ilc_pw01b,country,37,0,0,1990,2024,35,"(37, 35)",9.6,⚠ This looks like life years not satisfaction — verify after download.
-obesity_rate,sdg_02_10,country,37,0,0,2008,2025,6,"(37, 6)",19.8,% population BMI>=30.
+heavy_drinking,hlth_ehis_al3e,all,32,0,0,2014,2019,2,"(32, 2)",7.8,% drinking heavily at least once/week. 2014 and 2019 only.
+internet_usage,isoc_r_iuse_i,all,38,126,225,2006,2025,20,"(389, 20)",36.2,% regularly using internet. NUTS2 confirmed.
+life_expectancy,demo_r_mlifexp,all,37,125,345,1990,2024,35,"(507, 35)",24.3,Life expectancy at birth. No total sex — use F and M separately then average.
+life_satisfaction,ilc_pw01,all,37,0,0,2013,2025,7,"(37, 7)",10.0,Meaning of life
+obesity_rate,sdg_02_10,all,37,0,0,2008,2025,6,"(37, 6)",19.8,% population BMI>=30.
 poverty_risk,ilc_li41,all,38,100,283,2003,2025,23,"(421, 23)",44.8,No sub-dimensions — just filter unit. NUTS2 confirmed.
-smoking,hlth_ehis_sk3e,country,32,0,0,2014,2019,2,"(32, 2)",3.1,% smokers total (light + heavy). 2014 and 2019 only.
-social_contact,ilc_scp17,country,33,0,0,2013,2015,2,"(33, 2)",1.5,% with no one to discuss personal matters. 2015 only.
-social_expenditure,tps00100,country,37,0,0,2013,2024,12,"(37, 12)",11.7,Social protection expenditure per inhabitant in PPS.
-social_support,ilc_scp15,country,33,0,0,2015,2015,1,"(33, 1)",0.0,% with no one to ask for help. 2015 only.
-social_trust,ilc_pw03,country,37,0,0,2013,2025,7,"(37, 7)",10.4,"Mean trust rating. 2013, 2018, 2022 only."
-unemployment_rate,lfst_r_lfu3rt,all,36,123,352,1999,2025,27,"(511, 27)",13.4,Total unemployment rate. NUTS2 confirmed.
+smoking,hlth_ehis_sk3e,all,32,0,0,2014,2019,2,"(32, 2)",3.1,% smokers total (light + heavy). 2014 and 2019 only.
+social_contact,ilc_scp17,all,33,0,0,2013,2015,2,"(33, 2)",1.5,% with no one to discuss personal matters. 2015 only.
+social_expenditure,tps00100,all,37,0,0,2013,2024,12,"(37, 12)",11.7,Social protection expenditure per inhabitant in PPS.
+social_support,ilc_scp15,all,33,0,0,2015,2015,1,"(33, 1)",0.0,% with no one to ask for help. 2015 only.
+social_trust,ilc_pw03,all,37,0,0,2013,2025,7,"(37, 7)",10.4,"Mean trust rating. 2013, 2018, 2022 only."
+unemployment_rate,lfst_r_lfu3rt,all,36,123,351,1999,2025,27,"(510, 27)",13.4,Total unemployment rate. NUTS2 confirmed.
