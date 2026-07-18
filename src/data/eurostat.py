@@ -122,13 +122,6 @@ DATASETS = {
         "keep_aggregates": False,
         "notes":   "% with no one to discuss personal matters. 2015 only.",
     },
-    "social_expenditure": {
-        "code":    "tps00100",
-        "filters": {"unit": "PPS_HAB", "spdeps": "TOTAL"},
-        "level":   "all",
-        "keep_aggregates": False,
-        "notes":   "Social protection expenditure per inhabitant in PPS.",
-    },
     "social_support": {
         "code":    "ilc_scp15",
         "filters": {"unit": "PC", "sex": "T", "age": "Y_GE16",
@@ -154,6 +147,14 @@ DATASETS = {
         "keep_aggregates": False,
         "notes":   "Total unemployment rate. NUTS2 confirmed.",
     },
+    "fruit_veggies": {
+        "code":    "hlth_ehis_fv3e",
+        "filters": {"unit": "PC", "sex": "T", "age": "TOTAL",
+                    "isced11": "TOTAL", "n_portion": "GE5"},
+        "level":   "all",
+        "keep_aggregates": False,
+        "notes":   ">5 portions per day. 2014, 2019 only.",
+    },
 }
 
 # Reverse lookup: Eurostat code -> friendly name
@@ -162,7 +163,7 @@ eurostat_datasets = {config["code"]: name for name, config in DATASETS.items()}
 
 # ── Download & Save ──────────────────────────────────────────────────────────────────
 
-def download_and_save(code: str, label: str) -> tuple[Path, bool]:
+def download_and_save(code: str, label: str, force: bool = False) -> tuple[Path, bool]:
     """
     Download a Eurostat dataset by code and cache as TSV in RAW_DIR.
     Skips download if file already exists.
@@ -171,7 +172,7 @@ def download_and_save(code: str, label: str) -> tuple[Path, bool]:
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     save_path = RAW_DIR / f"{label}.tsv"
 
-    if save_path.exists():
+    if save_path.exists() and not force:
         log.info(f"⏭️ SKIP {label} — already cached")
         return save_path, False
 
@@ -255,11 +256,11 @@ def filter_geo(df: pd.DataFrame, level: str, keep_aggregates: bool) -> pd.DataFr
 
 # ── Pipeline ──────────────────────────────────────────────────────────────────
 
-def process_dataset(name: str, config: dict) -> tuple[pd.DataFrame, dict]:
+def process_dataset(name: str, config: dict, force: bool = False) -> tuple[pd.DataFrame, dict]:
     """Download, filter, reshape and save one dataset to data/interim/."""
     log.info(f"⏳ Processing {name} ({config['code']})")
 
-    save_path, _ = download_and_save(config["code"], name)
+    save_path, _ = download_and_save(config["code"], name, force=force)
     df = pd.read_csv(save_path, sep="\t", na_values=[":", ": "])
 
     df = parse(df)
@@ -315,7 +316,7 @@ def clear_interim():
     log.info("Cleared data/interim/")
 
 
-def main():
+def main(force: bool = False):
     """Run the full data collection pipeline."""
     logging.basicConfig(
         level=logging.INFO,
@@ -328,7 +329,7 @@ def main():
 
     report = []
     for name, config in DATASETS.items():
-        _, stats = process_dataset(name, config)
+        _, stats = process_dataset(name, config, force=force)
         report.append(stats)
 
     report_df = pd.DataFrame(report)
